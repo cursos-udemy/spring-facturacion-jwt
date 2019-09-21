@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>403</title>
+<!-- Google font -->
+<link href="https://fonts.googleapis.com/css?family=Cabin:400,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:900" rel="stylesheet">
+<!-- Custom stlylesheet -->
+<link type="text/css" rel="stylesheet" th:href="@{/css/errors-page/400.css}" />
+</head>
+<body>
+  <div id="notfound">
+    <div class="notfound">
+      <div class="notfound-404">
+        <h3 th:text="#{page.403.title}">Oops! Acceso Denegado!</h3>
+        <h1>
+          <span>4</span><span>0</span><span>3</span>
+        </h1>
+      </div>
+      <h2><span th:text="#{page.404.text.prefix}">Lo sentimos</span>∑<span th:text="${#authentication.name}" class="text-user"></span><span th:text="#{page.403.text.suffix}"></span></h2>
+      <a th:href="@{/}" class="text-link" th:text="#{page.link.home}">Ir a la home</a>
+    </div>
+  </div>
+</body>
+</html>
