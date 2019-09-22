@@ -7,18 +7,19 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.jendrix.udemy.facturacion.app.handler.LoginSuccessHandler;
+import com.jendrix.udemy.facturacion.app.config.filter.JWTAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	private LoginSuccessHandler loginSuccessHandler;
+	// @Autowired
+	// private LoginSuccessHandler loginSuccessHandler;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -67,8 +68,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// Autorizacion a rutas y recursos
 		// Aplico restricciones de rutas de factura con annotation en los controllers
 		http.authorizeRequests()
-				.antMatchers("/", "/css/**", "/js/**", "/images/**", "/fonts/**", "/vendor/**", "/cliente/listar**", "/errors/**", "/locale",
-						"/cliente/api/v1**")
+				.antMatchers("/", "/css/**", "/js/**", "/images/**", "/fonts/**", "/vendor/**", "/cliente/listar**", "/errors/**",
+						"/locale")
 				.permitAll()
 				.antMatchers("/uploads/**").hasAnyRole("USER")
 				.antMatchers("/cliente/view/**").hasAnyRole("USER")
@@ -76,9 +77,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/cliente/eliminar/**").hasAnyRole("ADMIN")
 				// .antMatchers("/factura/**").hasAnyRole("ADMIN")
 				.anyRequest().authenticated()
-				.and().formLogin().successHandler(this.loginSuccessHandler).loginPage("/login").permitAll()
-				.and().logout().permitAll()
-				.and().exceptionHandling().accessDeniedPage("/403");
+				.and().addFilter(new JWTAuthenticationFilter(super.authenticationManager()))
+				// .and().formLogin().successHandler(this.loginSuccessHandler).loginPage("/login").permitAll()
+				// .and().logout().permitAll()
+				// .and().exceptionHandling().accessDeniedPage("/403")
+				.csrf().disable()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 
 }

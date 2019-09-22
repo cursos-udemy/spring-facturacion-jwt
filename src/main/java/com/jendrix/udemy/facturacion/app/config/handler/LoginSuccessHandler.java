@@ -1,4 +1,4 @@
-package com.jendrix.udemy.facturacion.app.handler;
+package com.jendrix.udemy.facturacion.app.config.handler;
 
 import java.io.IOException;
 

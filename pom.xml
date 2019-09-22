@@ -9,9 +9,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.jendrix.udemy.spring</groupId>
-	<artifactId>udemy-facturacion</artifactId>
+	<artifactId>udemy-facturacion-jwt</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>udemy-facturacion</name>
+	<name>udemy-facturacion-jwt</name>
 	<description>Project Udemy Facturacion</description>
 
 	<properties>
@@ -91,6 +91,32 @@
 			<groupId>org.glassfish.jaxb</groupId>
 			<artifactId>jaxb-runtime</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>0.10.7</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<version>0.10.7</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<version>0.10.7</version>
+			<scope>runtime</scope>
+		</dependency>
+<!--
+ 		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+ -->
+
 	</dependencies>
 
 	<build>

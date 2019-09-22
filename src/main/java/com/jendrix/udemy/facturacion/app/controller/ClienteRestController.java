@@ -11,7 +11,7 @@ import com.jendrix.udemy.facturacion.app.model.entity.Cliente;
 import com.jendrix.udemy.facturacion.app.model.service.ClienteService;
 
 @RestController
-@RequestMapping("/cliente/api/v1")
+@RequestMapping("/v1/api/cliente")
 public class ClienteRestController {
 
 	@Autowired
