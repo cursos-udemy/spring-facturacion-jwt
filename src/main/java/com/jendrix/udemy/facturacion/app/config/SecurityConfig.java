@@ -14,6 +14,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.jendrix.udemy.facturacion.app.config.filter.JWTAuthenticationFilter;
+import com.jendrix.udemy.facturacion.app.config.filter.JWTAuthorizationFilter;
+import com.jendrix.udemy.facturacion.app.config.service.JWTService;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -29,6 +31,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UserDetailsService userDetailsService;
+
+	@Autowired
+	private JWTService jwtService;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -68,16 +73,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// Autorizacion a rutas y recursos
 		// Aplico restricciones de rutas de factura con annotation en los controllers
 		http.authorizeRequests()
-				.antMatchers("/", "/css/**", "/js/**", "/images/**", "/fonts/**", "/vendor/**", "/cliente/listar**", "/errors/**",
+				.antMatchers("/", "/css/**", "/js/**", "/images/**", "/fonts/**", "/vendor/**", "/cliente/listar**", "/error**",
 						"/locale")
 				.permitAll()
 				.antMatchers("/uploads/**").hasAnyRole("USER")
 				.antMatchers("/cliente/view/**").hasAnyRole("USER")
 				.antMatchers("/cliente/form/**").hasAnyRole("ADMIN")
 				.antMatchers("/cliente/eliminar/**").hasAnyRole("ADMIN")
-				// .antMatchers("/factura/**").hasAnyRole("ADMIN")
 				.anyRequest().authenticated()
-				.and().addFilter(new JWTAuthenticationFilter(super.authenticationManager()))
+				.and().addFilter(new JWTAuthenticationFilter(super.authenticationManager(), jwtService))
+				.addFilter(new JWTAuthorizationFilter(super.authenticationManager(), jwtService))
 				// .and().formLogin().successHandler(this.loginSuccessHandler).loginPage("/login").permitAll()
 				// .and().logout().permitAll()
 				// .and().exceptionHandling().accessDeniedPage("/403")

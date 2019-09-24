@@ -3,6 +3,7 @@ package com.jendrix.udemy.facturacion.app.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,7 @@ import com.jendrix.udemy.facturacion.app.model.service.ClienteService;
 
 @RestController
 @RequestMapping("/v1/api/cliente")
+@Secured("ROLE_ADMIN")
 public class ClienteRestController {
 
 	@Autowired
